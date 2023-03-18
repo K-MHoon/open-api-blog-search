@@ -4,4 +4,5 @@ import java.util.Map;
 
 public interface OpenApiRequestParameter {
 
+    String getUrlWithParams(String host, String url);
 }
