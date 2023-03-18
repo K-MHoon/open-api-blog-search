@@ -9,4 +9,14 @@ public enum SearchSort {
     ACCURACY("accuracy"), RECENCY("recency");
 
     private final String value;
+
+    public static SearchSort getSearchSortByValue(String value) {
+        for (SearchSort searchSort : SearchSort.values()) {
+            if(searchSort.getValue().equals(value)) {
+                return searchSort;
+            }
+        }
+
+        return ACCURACY;
+    }
 }
