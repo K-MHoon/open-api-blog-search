@@ -2,23 +2,36 @@ package com.blog.search.dto.request.openapi.kakao;
 
 import com.blog.search.dto.request.openapi.OpenApiRequestParameter;
 import com.blog.search.enums.sort.SearchSort;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Objects;
 
 @Getter
+@ToString
 public class OpenApiRequestParameterKakaoBlogSearch implements OpenApiRequestParameter {
+
+    @NotNull
     private String query;
-    private String sort;
+
+    private SearchSort sort;
+    @Min(1)
+    @Max(50)
     private Integer page;
+
+    @Min(1)
+    @Max(50)
     private Integer size;
 
     @Builder
     public OpenApiRequestParameterKakaoBlogSearch(String query, SearchSort sort, Integer page, Integer size) {
-        this.query = Objects.requireNonNull(query);
-        this.sort = Objects.isNull(sort) ? null : sort.getValue();
+        this.query = query;
+        this.sort = sort;
         this.page = page;
         this.size = size;
     }
@@ -31,7 +44,9 @@ public class OpenApiRequestParameterKakaoBlogSearch implements OpenApiRequestPar
                 .host(host)
                 .path(url)
                 .queryParam("query", this.getQuery())
-                .queryParam("sort", this.getSort())
+                .queryParam("sort", Objects.isNull(this.getSort())
+                        ? null
+                        : this.getSort().getValue())
                 .queryParam("page", this.getPage())
                 .queryParam("size", this.getSize())
                 .toUriString();
