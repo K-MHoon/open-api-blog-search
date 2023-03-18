@@ -1,5 +1,6 @@
 package com.blog.search.dto.response.openapi.kakao;
 
+import com.blog.search.dto.Pagination;
 import com.blog.search.dto.response.openapi.OpenApiResponse;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
@@ -7,7 +8,7 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 
@@ -36,7 +37,13 @@ public class OpenApiResponseKakaoBlogSearch implements OpenApiResponse {
         private String url;
         private String blogName;
         private String thumbnail;
-        @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
-        private LocalDateTime datetime;
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX", timezone = "Asia/Seoul")
+        private Date datetime;
+    }
+
+    @Override
+    public Pagination getPagination() {
+        Pagination.PageInfo pageInfo = new Pagination.PageInfo(this.getMeta().getPageableCount(), this.getMeta().getTotalCount(), this.getMeta().isEnd());
+        return new Pagination<>(pageInfo, this.getDocuments());
     }
 }

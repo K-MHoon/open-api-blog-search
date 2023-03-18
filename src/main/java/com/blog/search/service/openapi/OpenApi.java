@@ -1,9 +1,7 @@
 package com.blog.search.service.openapi;
 
 import com.blog.search.dto.request.openapi.OpenApiRequest;
-import com.blog.search.dto.request.openapi.kakao.OpenApiRequestKakao;
 import com.blog.search.dto.response.openapi.OpenApiResponse;
-import com.blog.search.dto.response.openapi.kakao.OpenApiResponseKakaoBlogSearch;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
@@ -17,12 +15,12 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @Getter
 @RequiredArgsConstructor
 public class OpenApi {
-    private final OpenApiResponse response;
+    private final Class<? extends OpenApiResponse> responseType;
     private final OpenApiRequest request;
 
     public OpenApiResponse call() {
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<? extends OpenApiResponse> result = restTemplate.exchange(request.getRequestUrl(), HttpMethod.GET, getJsonRequestHttpEntity(), response.getClass());
+        ResponseEntity<? extends OpenApiResponse> result = restTemplate.exchange(request.getRequestUrl(), HttpMethod.GET, getJsonRequestHttpEntity(), responseType);
 
         return result.getBody();
     }
