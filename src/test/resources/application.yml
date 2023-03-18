@@ -19,3 +19,8 @@ spring:
     url: jdbc:h2:~/blog-search-test
     username: sa
     password:
+
+api:
+  kakao:
+    key:
+    host: dapi.kakao.com
