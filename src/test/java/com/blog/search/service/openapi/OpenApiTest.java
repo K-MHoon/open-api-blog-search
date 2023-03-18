@@ -1,47 +1,31 @@
 package com.blog.search.service.openapi;
 
-import com.blog.search.dto.request.openapi.OpenApiRequest;
-import com.blog.search.dto.request.openapi.kakao.OpenApiRequestKakao;
-import com.blog.search.dto.response.openapi.kakao.OpenApiResponseKakaoBlogSearch;
+import com.blog.search.dto.response.openapi.OpenApiResponse;
+import com.blog.search.enums.sort.SearchSort;
+import com.blog.search.service.search.BlogSearchService;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @SpringBootTest
 class OpenApiTest {
 
-    @Value("${api.kakao.key}")
-    String key;
-
-    @Value("${api.kakao.host}")
-    String host;
+    @Autowired
+    BlogSearchService blogSearchService;
 
     @Test
-    void openApiCallTest() throws URISyntaxException {
-        OpenApiRequest request = new OpenApiRequestKakao(key, host, "/v2/search/blog");
-        RestTemplate restTemplate = new RestTemplate();
-        URI uri = new URI("https://" + request.getHost() + request.getUrl() + "?" + "query=링딩동");
+    void openApiCallTest() {
+        String query = "링딩동";
+        SearchSort sort = null;
+        Integer page = null;
+        Integer size = null;
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.set(HttpHeaders.AUTHORIZATION, request.getAuthorization());
-        headers.set(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON_VALUE);
-        HttpEntity entity = new HttpEntity<>(headers);
+        OpenApiResponse result = blogSearchService.getKakaoBlogSearch(query, sort, page, size);
 
-        ResponseEntity<OpenApiResponseKakaoBlogSearch> response = restTemplate.exchange(uri, HttpMethod.GET, entity, OpenApiResponseKakaoBlogSearch.class);
-
-        System.out.println(response.getBody());
+        System.out.println(result);
     }
 
     @Test
