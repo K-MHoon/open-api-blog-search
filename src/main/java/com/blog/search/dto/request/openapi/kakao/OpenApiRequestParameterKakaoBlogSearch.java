@@ -20,12 +20,9 @@ public class OpenApiRequestParameterKakaoBlogSearch implements OpenApiRequestPar
     private String query;
 
     private SearchSort sort;
-    @Min(1)
-    @Max(50)
+
     private Integer page;
 
-    @Min(1)
-    @Max(50)
     private Integer size;
 
     @Builder
