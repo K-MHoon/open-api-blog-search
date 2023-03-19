@@ -174,7 +174,7 @@ class BlogSearchServiceTest {
         BlogSearchControllerResponse.GetPopularKeywordResponse popularKeyword = service.getPopularKeyword(10);
 
         assertAll(() -> assertThat(popularKeyword.getPopularKeywordList()).hasSize(3),
-                () -> assertThat(popularKeyword.getPopularKeywordList()).extracting("query").containsExactly("테스트1","테스트2"));
+                () -> assertThat(popularKeyword.getPopularKeywordList()).extracting("query").containsExactly("테스트1","테스트2","테스트3"));
     }
 
     private void createSimpleSearchHistory(String query) {
