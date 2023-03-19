@@ -37,6 +37,7 @@ public class OpenApiRequestParameterKakaoBlogSearch implements OpenApiRequestPar
                 .queryParam("sort", getSortValue())
                 .queryParam("page", this.getPage())
                 .queryParam("size", this.getSize())
+                .build()
                 .toUriString();
     }
 
