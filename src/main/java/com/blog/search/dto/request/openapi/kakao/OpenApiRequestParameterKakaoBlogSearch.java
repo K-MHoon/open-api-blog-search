@@ -2,9 +2,6 @@ package com.blog.search.dto.request.openapi.kakao;
 
 import com.blog.search.dto.request.openapi.OpenApiRequestParameter;
 import com.blog.search.enums.sort.SearchSort;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -16,18 +13,14 @@ import java.util.Objects;
 @ToString
 public class OpenApiRequestParameterKakaoBlogSearch implements OpenApiRequestParameter {
 
-    @NotNull
     private String query;
-
     private SearchSort sort;
-
     private Integer page;
-
     private Integer size;
 
     @Builder
     public OpenApiRequestParameterKakaoBlogSearch(String query, SearchSort sort, Integer page, Integer size) {
-        this.query = query;
+        this.query = Objects.requireNonNull(query, "검색어는 필수 값입니다.");
         this.sort = sort;
         this.page = page;
         this.size = size;
@@ -41,11 +34,16 @@ public class OpenApiRequestParameterKakaoBlogSearch implements OpenApiRequestPar
                 .host(host)
                 .path(url)
                 .queryParam("query", this.getQuery())
-                .queryParam("sort", Objects.isNull(this.getSort())
-                        ? null
-                        : this.getSort().getValue())
+                .queryParam("sort", getSortValue())
                 .queryParam("page", this.getPage())
                 .queryParam("size", this.getSize())
+                .build()
                 .toUriString();
+    }
+
+    private Object getSortValue() {
+        return Objects.isNull(this.getSort())
+                ? null
+                : this.getSort().getValue();
     }
 }

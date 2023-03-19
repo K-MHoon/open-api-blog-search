@@ -23,7 +23,7 @@ class OpenApiTest {
         Integer page = null;
         Integer size = null;
 
-        OpenApiResponse result = blogSearchService.getKakaoBlogSearch(query, sort, page, size);
+        OpenApiResponse result = blogSearchService.getKakaoBlogSearchResult(query, sort, page, size);
 
         System.out.println(result);
     }

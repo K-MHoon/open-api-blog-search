@@ -2,6 +2,7 @@ package com.blog.search.controller.search;
 
 import com.blog.search.dto.Pagination;
 import com.blog.search.dto.response.openapi.OpenApiResponse;
+import com.blog.search.dto.response.search.BlogSearchControllerResponse;
 import com.blog.search.enums.sort.SearchSort;
 import com.blog.search.service.search.BlogSearchService;
 import jakarta.validation.constraints.Max;
@@ -31,8 +32,16 @@ public class BlogSearchController {
                                                @RequestParam(value = "size", required = false) @Min(1) @Max(50) Integer size) {
         log.info("[getKakaoBlogSearchResult] called query = {}, sort = {}, page = {}, size = {}", query, sort, page, size);
 
-        OpenApiResponse response = blogSearchService.getKakaoBlogSearch(query, sort, page, size);
+        OpenApiResponse response = blogSearchService.getKakaoBlogSearchResult(query, sort, page, size);
 
         return response.getPagination();
+    }
+
+    @GetMapping("/api/search/keyword")
+    @ResponseStatus(HttpStatus.OK)
+    public BlogSearchControllerResponse.GetPopularKeywordResponse getPopularKeyword(@RequestParam(value = "size", required = false, defaultValue = "1") @Min(1) @Max(10) Integer size) {
+        log.info("[getPopularKeyword] called size = {}", size);
+
+        return blogSearchService.getPopularKeyword(size);
     }
 }
