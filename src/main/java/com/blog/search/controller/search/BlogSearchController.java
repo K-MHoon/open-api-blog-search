@@ -31,7 +31,7 @@ public class BlogSearchController {
                                                @RequestParam(value = "size", required = false) @Min(1) @Max(50) Integer size) {
         log.info("[getKakaoBlogSearchResult] called query = {}, sort = {}, page = {}, size = {}", query, sort, page, size);
 
-        OpenApiResponse response = blogSearchService.getKakaoBlogSearch(query, sort, page, size);
+        OpenApiResponse response = blogSearchService.getKakaoBlogSearchResult(query, sort, page, size);
 
         return response.getPagination();
     }
