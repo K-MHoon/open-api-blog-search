@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.util.Date;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 
@@ -38,7 +38,7 @@ public class OpenApiResponseKakaoBlogSearch implements OpenApiResponse {
         private String blogName;
         private String thumbnail;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX", timezone = "Asia/Seoul")
-        private Date datetime;
+        private ZonedDateTime datetime;
     }
 
     @Override
