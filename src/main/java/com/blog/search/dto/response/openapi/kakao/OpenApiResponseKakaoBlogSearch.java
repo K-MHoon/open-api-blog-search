@@ -5,6 +5,7 @@ import com.blog.search.dto.response.openapi.OpenApiResponse;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -31,6 +32,7 @@ public class OpenApiResponseKakaoBlogSearch implements OpenApiResponse {
     @Getter
     @JsonNaming(PropertyNamingStrategy.LowerCaseStrategy.class)
     @ToString
+    @EqualsAndHashCode
     public static class Document {
         private String title;
         private String contents;

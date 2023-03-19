@@ -2,8 +2,7 @@ package com.blog.search.service.openapi;
 
 import com.blog.search.dto.request.openapi.OpenApiRequest;
 import com.blog.search.dto.response.openapi.OpenApiResponse;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 

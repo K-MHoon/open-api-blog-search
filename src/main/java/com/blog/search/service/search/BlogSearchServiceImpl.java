@@ -42,10 +42,9 @@ public class BlogSearchServiceImpl implements BlogSearchService {
                 .size(size)
                 .build();
         OpenApiRequestKakao kakaoRequest = new OpenApiRequestKakao(key, host, url, parameter);
-        OpenApi openApi = new OpenApi(OpenApiResponseKakaoBlogSearch.class, kakaoRequest);
-
         searchHistoryJpaRepository.save(new SearchHistory(query, ApiCompany.KAKAO));
 
+        OpenApi openApi = new OpenApi(OpenApiResponseKakaoBlogSearch.class, kakaoRequest);
         return openApi.call();
     }
 
