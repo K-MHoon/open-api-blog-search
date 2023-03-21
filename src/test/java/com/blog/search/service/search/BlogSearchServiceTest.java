@@ -1,12 +1,17 @@
 package com.blog.search.service.search;
 
+import com.blog.search.config.OpenApiInfoLocator;
+import com.blog.search.dto.request.openapi.OpenApiRequestParameter;
+import com.blog.search.dto.request.openapi.kakao.KakaoBlogSearchParameter;
 import com.blog.search.dto.response.openapi.OpenApiResponse;
 import com.blog.search.dto.response.openapi.kakao.OpenApiResponseKakaoBlogSearch;
 import com.blog.search.dto.response.search.BlogSearchControllerResponse;
 import com.blog.search.entity.search.SearchHistory;
-import com.blog.search.enums.ApiCompany;
-import com.blog.search.enums.sort.SearchSort;
+import com.blog.search.enums.CompanyType;
+import com.blog.search.enums.openapi.KakaoApiType;
+import com.blog.search.enums.sort.KakaoBlogSearchSort;
 import com.blog.search.repository.search.SearchHistoryJpaRepository;
+import com.blog.search.service.openapi.OpenApiService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
@@ -16,6 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.HttpClientErrorException;
 
+import java.net.BindException;
 import java.time.ZonedDateTime;
 import java.util.Collections;
 import java.util.List;
@@ -31,7 +37,13 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class BlogSearchServiceTest {
 
     @Autowired
-    BlogSearchService service;
+    OpenApiService openApiService;
+
+    @Autowired
+    OpenApiInfoLocator openApiInfoLocator;
+
+    @Autowired
+    BlogSearchService blogSearchService;
 
     @Autowired
     SearchHistoryJpaRepository searchHistoryJpaRepository;
@@ -41,11 +53,12 @@ class BlogSearchServiceTest {
     @Timeout(1000)
     void getKakaoBlogSearchResultSuccess() {
         String query = "테스트";
-        SearchSort sort = null;
+        KakaoBlogSearchSort sort = null;
         Integer page = null;
         Integer size = null;
+        OpenApiRequestParameter parameter = new KakaoBlogSearchParameter(query, sort, page, size);
 
-        OpenApiResponse result = service.getKakaoBlogSearchResult(query, sort, page, size);
+        OpenApiResponse result = openApiService.call(CompanyType.KAKAO, KakaoApiType.BLOG_SEARCH, parameter);
 
         assertThat(result).isInstanceOf(OpenApiResponseKakaoBlogSearch.class);
     }
@@ -55,11 +68,8 @@ class BlogSearchServiceTest {
     @Timeout(1000)
     void saveKakaoSearchHistoryWhenSearchSuccess() {
         String query = "테스트";
-        SearchSort sort = null;
-        Integer page = null;
-        Integer size = null;
 
-        service.getKakaoBlogSearchResult(query, sort, page, size);
+        blogSearchService.saveSearchHistory(query, CompanyType.KAKAO);
 
         List<SearchHistory> historyList = searchHistoryJpaRepository.findAll();
         assertAll(() -> assertThat(historyList).hasSize(1)
@@ -71,13 +81,15 @@ class BlogSearchServiceTest {
     @Timeout(1000)
     void causeExceptionWhenNotInputQuery() {
         String query = null;
-        SearchSort sort = null;
+        KakaoBlogSearchSort sort = null;
         Integer page = null;
         Integer size = null;
+        OpenApiRequestParameter parameter = new KakaoBlogSearchParameter(query, sort, page, size);
 
-        assertThatThrownBy(() -> service.getKakaoBlogSearchResult(query, sort, page, size))
-                .isInstanceOf(NullPointerException.class)
-                .hasMessage("검색어는 필수 값입니다.");
+        assertThatThrownBy(() -> openApiService.call(CompanyType.KAKAO, KakaoApiType.BLOG_SEARCH, parameter))
+                .isInstanceOf(HttpClientErrorException.class)
+                .extracting("statusCode")
+                .isEqualTo(HttpStatus.BAD_REQUEST);
     }
 
     @Test
@@ -85,12 +97,14 @@ class BlogSearchServiceTest {
     @Timeout(1000)
     void getKakaoBlogSearchResultAccurateIfSearchSortIsNull() {
         String query = "테스트";
-        SearchSort sort = null;
+        KakaoBlogSearchSort sort = null;
         Integer page = null;
         Integer size = null;
+        OpenApiRequestParameter parameter = new KakaoBlogSearchParameter(query, sort, page, size);
+        OpenApiRequestParameter parameter2 = new KakaoBlogSearchParameter(query, KakaoBlogSearchSort.ACCURACY, page, size);
 
-        OpenApiResponse originalResult = service.getKakaoBlogSearchResult(query, sort, page, size);
-        OpenApiResponse targetResult = service.getKakaoBlogSearchResult(query, SearchSort.ACCURACY, page, size);
+        OpenApiResponse originalResult = openApiService.call(CompanyType.KAKAO, KakaoApiType.BLOG_SEARCH, parameter);
+        OpenApiResponse targetResult = openApiService.call(CompanyType.KAKAO, KakaoApiType.BLOG_SEARCH, parameter2);
 
         assertThat(originalResult.getPagination().getData())
                 .containsExactlyElementsOf(targetResult.getPagination().getData());
@@ -102,12 +116,13 @@ class BlogSearchServiceTest {
     void getKakaoBlogSearchResulRecencyIfSearchSortIsRecency() {
         // given
         String query = "테스트";
-        SearchSort sort = SearchSort.RECENCY;
+        KakaoBlogSearchSort sort = KakaoBlogSearchSort.RECENCY;
         Integer page = null;
         Integer size = null;
+        OpenApiRequestParameter parameter = new KakaoBlogSearchParameter(query, sort, page, size);
 
         // when
-        OpenApiResponseKakaoBlogSearch result = (OpenApiResponseKakaoBlogSearch)service.getKakaoBlogSearchResult(query, sort, page, size);
+        OpenApiResponseKakaoBlogSearch result = (OpenApiResponseKakaoBlogSearch) openApiService.call(CompanyType.KAKAO, KakaoApiType.BLOG_SEARCH, parameter);
 
         // then
         List<ZonedDateTime> zonedDateTimeList = result.getDocuments().stream()
@@ -122,11 +137,12 @@ class BlogSearchServiceTest {
     @Timeout(1000)
     void getKakaoBlogSearchResultAccurateIfPageHigherThan50() {
         String query = "테스트";
-        SearchSort sort = null;
+        KakaoBlogSearchSort sort = null;
         Integer page = 51;
         Integer size = null;
+        OpenApiRequestParameter parameter = new KakaoBlogSearchParameter(query, sort, page, size);
 
-        assertThatThrownBy(() -> service.getKakaoBlogSearchResult(query, sort, page, size))
+        assertThatThrownBy(() -> openApiService.call(CompanyType.KAKAO, KakaoApiType.BLOG_SEARCH, parameter))
                 .isInstanceOf(HttpClientErrorException.class)
                 .extracting("statusCode")
                 .isEqualTo(HttpStatus.BAD_REQUEST);
@@ -138,11 +154,12 @@ class BlogSearchServiceTest {
     @Timeout(1000)
     void getKakaoBlogSearchResultAccurateIfSizeHigherThan50() {
         String query = "테스트";
-        SearchSort sort = null;
+        KakaoBlogSearchSort sort = null;
         Integer page = null;
         Integer size = 51;
+        OpenApiRequestParameter parameter = new KakaoBlogSearchParameter(query, sort, page, size);
 
-        assertThatThrownBy(() -> service.getKakaoBlogSearchResult(query, sort, page, size))
+        assertThatThrownBy(() -> openApiService.call(CompanyType.KAKAO, KakaoApiType.BLOG_SEARCH, parameter))
                 .isInstanceOf(HttpClientErrorException.class)
                 .extracting("statusCode")
                 .isEqualTo(HttpStatus.BAD_REQUEST);
@@ -154,11 +171,12 @@ class BlogSearchServiceTest {
     @Timeout(1000)
     void getKakaoBlogSearchResultAccurateIfSizeIsNull() {
         String query = "테스트";
-        SearchSort sort = null;
+        KakaoBlogSearchSort sort = null;
         Integer page = null;
         Integer size = null;
+        OpenApiRequestParameter parameter = new KakaoBlogSearchParameter(query, sort, page, size);
 
-        OpenApiResponse result = service.getKakaoBlogSearchResult(query, sort, page, size);
+        OpenApiResponse result = openApiService.call(CompanyType.KAKAO, KakaoApiType.BLOG_SEARCH, parameter);
 
         assertThat(result.getPagination().getData()).hasSize(10);
     }
@@ -171,14 +189,14 @@ class BlogSearchServiceTest {
         createSimpleSearchHistory("테스트2");
         createSimpleSearchHistory("테스트3");
 
-        BlogSearchControllerResponse.GetPopularKeywordResponse popularKeyword = service.getPopularKeyword(10);
+        BlogSearchControllerResponse.GetPopularKeywordResponse popularKeyword = blogSearchService.getPopularKeyword(10);
 
         assertAll(() -> assertThat(popularKeyword.getPopularKeywordList()).hasSize(3),
                 () -> assertThat(popularKeyword.getPopularKeywordList()).extracting("query").containsExactly("테스트1","테스트2","테스트3"));
     }
 
     private void createSimpleSearchHistory(String query) {
-        SearchHistory searchHistory1 = new SearchHistory(query, ApiCompany.KAKAO);
+        SearchHistory searchHistory1 = new SearchHistory(query, CompanyType.KAKAO);
         searchHistoryJpaRepository.save(searchHistory1);
     }
 
@@ -191,7 +209,7 @@ class BlogSearchServiceTest {
         createTestSearchHistory(7, "테스트4");
         createTestSearchHistory(6, "테스트3");
 
-        BlogSearchControllerResponse.GetPopularKeywordResponse popularKeyword = service.getPopularKeyword(10);
+        BlogSearchControllerResponse.GetPopularKeywordResponse popularKeyword = blogSearchService.getPopularKeyword(10);
 
         assertAll(() -> assertThat(popularKeyword.getPopularKeywordList()).hasSize(4),
                 () -> assertThat(popularKeyword.getPopularKeywordList()).extracting("query").containsExactlyInAnyOrder("테스트1","테스트2","테스트3","테스트4"),
@@ -201,7 +219,7 @@ class BlogSearchServiceTest {
 
     private void createTestSearchHistory(int endInclusive, String query) {
         IntStream.rangeClosed(1, endInclusive)
-                .mapToObj(i -> new SearchHistory(query, ApiCompany.KAKAO))
+                .mapToObj(i -> new SearchHistory(query, CompanyType.KAKAO))
                 .forEach(searchHistoryJpaRepository::save);
     }
 }

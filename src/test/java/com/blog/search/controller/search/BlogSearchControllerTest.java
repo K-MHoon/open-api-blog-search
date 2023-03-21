@@ -1,8 +1,12 @@
 package com.blog.search.controller.search;
 
+import com.blog.search.config.OpenApiInfoLocator;
+import com.blog.search.dto.info.OpenApiInfo;
 import com.blog.search.entity.search.SearchHistory;
-import com.blog.search.enums.ApiCompany;
+import com.blog.search.enums.CompanyType;
 import com.blog.search.repository.search.SearchHistoryJpaRepository;
+import com.blog.search.service.search.BlogSearchService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
@@ -28,17 +32,26 @@ class BlogSearchControllerTest {
     MockMvc mockMvc;
 
     @Autowired
+    BlogSearchService blogSearchService;
+
+    @Autowired
     SearchHistoryJpaRepository searchHistoryJpaRepository;
 
+    @Autowired
+    OpenApiInfoLocator locator;
+
     @Test
-    @DisplayName("Get 카카오 블로그 검색어 조회 - /api/search/kakao")
+    @DisplayName("Get 카카오 블로그 검색어 조회 - /api/kakao/search")
     @Timeout(1000)
     void getKakaoBlogSearchResultSuccess() throws Exception {
         LinkedMultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("query", "테스트");
 
-        ResultActions result = mockMvc.perform(get("/api/search/kakao")
+        OpenApiInfo openApiInfo = locator.getOpenApiInfo(CompanyType.KAKAO);
+
+        ResultActions result = mockMvc.perform(get("http://localhost:8080/api/kakao/search")
                 .params(params)
+                .headers(openApiInfo.getHttpHeaders())
                 .contentType(MediaType.APPLICATION_JSON));
 
         result.andExpect(status().isOk())
@@ -52,7 +65,7 @@ class BlogSearchControllerTest {
     @Timeout(1000)
     void getPopularKeywordSuccess() throws Exception {
         // given
-        SearchHistory searchHistory = new SearchHistory("테스트", ApiCompany.KAKAO);
+        SearchHistory searchHistory = new SearchHistory("테스트", CompanyType.KAKAO);
         searchHistoryJpaRepository.save(searchHistory);
 
         LinkedMultiValueMap<String, String> params = new LinkedMultiValueMap<>();
