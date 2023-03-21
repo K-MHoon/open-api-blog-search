@@ -1,14 +1,9 @@
 package com.blog.search.dto.info;
 
-import com.blog.search.dto.request.openapi.OpenApiRequest;
-import com.blog.search.dto.request.openapi.OpenApiRequestParameter;
-import com.blog.search.dto.response.openapi.OpenApiResponse;
+import org.springframework.http.HttpHeaders;
+import org.springframework.web.util.UriComponentsBuilder;
 
 public interface OpenApiInfo {
-
-    String getKey();
-    String getUrl();
-    String getHost();
-    OpenApiRequest createRequest(OpenApiRequestParameter parameter);
-    Class<? extends OpenApiResponse> getResponseType();
+    HttpHeaders getHttpHeaders();
+    String getRequestUrl(UriComponentsBuilder parameter, String url);
 }
