@@ -1,7 +1,7 @@
 package com.blog.search.entity.search;
 
 import com.blog.search.entity.BaseEntity;
-import com.blog.search.enums.ApiCompany;
+import com.blog.search.enums.CompanyType;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -20,10 +20,10 @@ public class SearchHistory extends BaseEntity {
     private String query;
 
     @Enumerated(EnumType.STRING)
-    private ApiCompany company;
+    private CompanyType company;
 
     @Builder
-    public SearchHistory(String query, ApiCompany company) {
+    public SearchHistory(String query, CompanyType company) {
         this.query = query;
         this.company = company;
     }
