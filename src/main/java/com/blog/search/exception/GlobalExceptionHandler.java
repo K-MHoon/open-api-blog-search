@@ -36,7 +36,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 .body(createErrorResponse(e, errorCode));
     }
 
-
     private ErrorResponse createErrorResponse(BindException e, ErrorCode errorCode) {
         List<ErrorResponse.ValidationError> validationErrorList = e.getBindingResult()
                 .getFieldErrors()
@@ -58,10 +57,24 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(errorCode, ex.getMessage());
     }
 
+    @Override
+    protected ResponseEntity<Object> handleBindException(BindException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+        log.error("handleBindException" ,ex);
+        CommonErrorCode errorCode = CommonErrorCode.CONSTRAINT_VIOLATION;
+        return handleExceptionInternal(ex, errorCode);
+    }
+
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<Object> handleConstraintViolationException(ConstraintViolationException ex) {
         log.error("handleConstraintViolationException" ,ex);
         CommonErrorCode errorCode = CommonErrorCode.CONSTRAINT_VIOLATION;
+        return handleExceptionInternal(errorCode, ex.getMessage());
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Object> handleException(Exception ex) {
+        log.error("handleException" ,ex);
+        CommonErrorCode errorCode = CommonErrorCode.UNKNOWN_EXCEPTION;
         return handleExceptionInternal(errorCode, ex.getMessage());
     }
 

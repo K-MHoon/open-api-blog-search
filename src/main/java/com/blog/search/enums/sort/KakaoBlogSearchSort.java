@@ -5,13 +5,17 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum SearchSort {
-    ACCURACY("accuracy"), RECENCY("recency");
+public enum KakaoBlogSearchSort {
+
+    // 정확도순
+    ACCURACY("accuracy"),
+    // 최신순
+    RECENCY("recency");
 
     private final String value;
 
-    public static SearchSort getSearchSortByValue(String value) {
-        for (SearchSort searchSort : SearchSort.values()) {
+    public static KakaoBlogSearchSort getSearchSortByValue(String value) {
+        for (KakaoBlogSearchSort searchSort : KakaoBlogSearchSort.values()) {
             if(searchSort.getValue().equals(value)) {
                 return searchSort;
             }

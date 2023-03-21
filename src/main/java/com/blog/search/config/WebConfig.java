@@ -1,6 +1,7 @@
 package com.blog.search.config;
 
-import com.blog.search.converter.StringToSearchSortConverter;
+import com.blog.search.converter.StringToKakaoBlogSearchSortConverter;
+import com.blog.search.converter.StringToNaverBlogSearchSortConverter;
 import org.springframework.beans.factory.config.ServiceLocatorFactoryBean;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
@@ -19,7 +20,8 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addFormatters(FormatterRegistry registry) {
-        registry.addConverter(new StringToSearchSortConverter());
+        registry.addConverter(new StringToKakaoBlogSearchSortConverter());
+        registry.addConverter(new StringToNaverBlogSearchSortConverter());
     }
 
     @Bean

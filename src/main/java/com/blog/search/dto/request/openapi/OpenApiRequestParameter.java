@@ -1,8 +1,8 @@
 package com.blog.search.dto.request.openapi;
 
-import java.util.Map;
+import org.springframework.web.util.UriComponentsBuilder;
 
 public interface OpenApiRequestParameter {
 
-    String getUrlWithParams(String host, String url);
+    UriComponentsBuilder getParameters();
 }
