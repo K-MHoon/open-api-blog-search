@@ -52,20 +52,7 @@
 					"name": "카카오 블로그 검색 조회",
 					"originalRequest": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "X-Naver-Client-Id",
-								"value": "DQdgkg0ONud1Xev8LZ_R",
-								"type": "text",
-								"disabled": true
-							},
-							{
-								"key": "X-Naver-Client-Secret",
-								"value": "nbHTeppfih",
-								"type": "text",
-								"disabled": true
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "http://localhost:8080/api/naver/search?query=반갑습니다",
 							"protocol": "http",
@@ -239,18 +226,7 @@
 					"name": "인기 검색어 목록 조회",
 					"originalRequest": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "X-Naver-Client-Id",
-								"value": "DQdgkg0ONud1Xev8LZ_R",
-								"type": "text"
-							},
-							{
-								"key": "X-Naver-Client-Secret",
-								"value": "nbHTeppfih",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "http://localhost:8080/api/search/keyword?size=10",
 							"protocol": "http",
