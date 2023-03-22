@@ -5,6 +5,9 @@ import com.blog.search.dto.response.openapi.kakao.OpenApiResponseKakaoBlogSearch
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * 카카오 API별로 Url과 ResponseType, Parameter Type을 가지는 Enum
+ */
 @RequiredArgsConstructor
 @Getter
 public enum KakaoApiType implements ApiType {

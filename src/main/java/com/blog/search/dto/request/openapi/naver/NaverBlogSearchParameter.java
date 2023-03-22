@@ -1,12 +1,12 @@
 package com.blog.search.dto.request.openapi.naver;
 
 import com.blog.search.dto.request.openapi.OpenApiRequestParameter;
-import com.blog.search.enums.sort.KakaoBlogSearchSort;
 import com.blog.search.enums.sort.NaverBlogSearchSort;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Objects;

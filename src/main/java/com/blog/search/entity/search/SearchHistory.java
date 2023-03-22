@@ -8,6 +8,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+/**
+ * 검색한 키워드를 저장하는 Entity
+ */
 @Entity
 @Getter
 @Table(name = "search_history")

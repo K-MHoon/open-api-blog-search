@@ -10,7 +10,9 @@ import lombok.*;
 import java.time.ZonedDateTime;
 import java.util.List;
 
-
+/**
+ * 카카오 블로그 검색 API Response
+ */
 @Getter
 @ToString
 @NoArgsConstructor

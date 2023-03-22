@@ -15,6 +15,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.time.Duration;
 
+/**
+ * Web Mvc 설정 관련 Configuration
+ *
+ * 해당 클래스는 다음과 같은 설정 정보를 Bean으로 등록한다.
+ *
+ * - Converter
+ * - methodValidationPostProcessor
+ * - restTemplate
+ * - serviceLocatorOpenApiInfoLocator
+ */
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
@@ -39,7 +49,7 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public ServiceLocatorFactoryBean serviceLocatorForPaymentHandlerLocator() {
+    public ServiceLocatorFactoryBean serviceLocatorOpenApiInfoLocator() {
         ServiceLocatorFactoryBean factoryBean = new ServiceLocatorFactoryBean();
         factoryBean.setServiceLocatorInterface(OpenApiInfoLocator.class);
         return factoryBean;

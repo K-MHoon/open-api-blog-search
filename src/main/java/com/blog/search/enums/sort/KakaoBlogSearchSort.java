@@ -3,6 +3,9 @@ package com.blog.search.enums.sort;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * 카카오 블로그 검색에서 정렬 조회 조건
+ */
 @Getter
 @RequiredArgsConstructor
 public enum KakaoBlogSearchSort {

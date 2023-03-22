@@ -22,5 +22,9 @@ spring:
 
 api:
   kakao:
-    key:
+    key: 5858da262cc9617fc658facbf4e7ee93
     host: dapi.kakao.com
+  naver:
+    client: DQdgkg0ONud1Xev8LZ_R
+    secret: 3bzCg9VDj1
+    host: openapi.naver.com
