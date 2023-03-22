@@ -1,7 +1,5 @@
 package com.blog.search.enums.openapi;
 
-import com.blog.search.dto.request.openapi.OpenApiRequestParameter;
-import com.blog.search.dto.request.openapi.naver.NaverBlogSearchParameter;
 import com.blog.search.dto.response.openapi.OpenApiResponse;
 import com.blog.search.dto.response.openapi.naver.OpenApiResponseNaverBlogSearch;
 import lombok.Getter;
@@ -14,11 +12,9 @@ import lombok.RequiredArgsConstructor;
 @Getter
 public enum NaverApiType implements ApiType {
 
-    BLOG_SEARCH("/v1/search/blog.json", OpenApiResponseNaverBlogSearch.class, NaverBlogSearchParameter.class);
+    BLOG_SEARCH("/v1/search/blog.json", OpenApiResponseNaverBlogSearch.class);
 
     private final String url;
     private final Class<? extends OpenApiResponse> responseClassType;
-
-    private final Class<? extends OpenApiRequestParameter> requestParameterType;
 
 }
