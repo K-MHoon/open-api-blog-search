@@ -26,19 +26,23 @@
 					"query": [
 						{
 							"key": "query",
-							"value": "{{query}}"
+							"value": "{{query}}",
+							"description": "검색어 (String, Required)"
 						},
 						{
 							"key": "sort",
-							"value": "{{sort}}"
+							"value": "{{sort}}",
+							"description": "조회 조건 (accuracy = 정확도순, recency = 최신순) (String, Optional)"
 						},
 						{
 							"key": "page",
-							"value": "{{page}}"
+							"value": "{{page}}",
+							"description": "검색할 페이지 (1~50) (Integer, Optional)"
 						},
 						{
 							"key": "size",
-							"value": "{{size}}"
+							"value": "{{size}}",
+							"description": "검색할 개수 (1~50) (Integer, Optional)"
 						}
 					]
 				}
