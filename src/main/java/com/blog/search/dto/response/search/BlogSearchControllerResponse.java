@@ -5,6 +5,10 @@ import lombok.*;
 
 import java.util.List;
 
+/**
+ * 블로그 검색 조회 Controller Response 관련 Inner Class 관리
+ *
+ */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class BlogSearchControllerResponse {
 

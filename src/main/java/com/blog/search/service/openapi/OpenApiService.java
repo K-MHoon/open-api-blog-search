@@ -14,6 +14,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+/**
+ * 오픈 API 관련 호출 역할을 하는 서비스
+ */
 @Getter
 @RequiredArgsConstructor
 @Service
@@ -21,6 +24,14 @@ public class OpenApiService {
     private final RestTemplate restTemplate;
     private final OpenApiInfoLocator openApiInfoLocator;
 
+    /**
+     * OpenApi를 호출한다.
+     *
+     * @param company 호출할 회사
+     * @param apiType 호출한 Api 타입
+     * @param parameter 호출할 파라미터
+     * @return
+     */
     public OpenApiResponse call(CompanyType company, ApiType apiType, OpenApiRequestParameter parameter) {
         OpenApiInfo openApiInfo = openApiInfoLocator.getOpenApiInfo(company);
 

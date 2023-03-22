@@ -8,6 +8,9 @@ import org.springframework.validation.FieldError;
 
 import java.util.List;
 
+/**
+ * 예외를 반환하는 Form 객체
+ */
 @Getter
 @Builder
 @RequiredArgsConstructor

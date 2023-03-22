@@ -1,9 +1,7 @@
 package com.blog.search.dto.info.naver;
 
 import com.blog.search.dto.info.OpenApiInfo;
-import com.blog.search.dto.response.openapi.OpenApiResponse;
 import lombok.Getter;
-import lombok.ToString;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
@@ -11,6 +9,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+/**
+ * 네이버 Api 호출 관련 정보를 담고있는 Information
+ */
 @Component("NAVER")
 @Getter
 public class NaverApiInfo implements OpenApiInfo {

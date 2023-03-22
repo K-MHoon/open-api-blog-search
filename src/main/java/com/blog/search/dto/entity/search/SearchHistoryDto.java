@@ -3,6 +3,9 @@ package com.blog.search.dto.entity.search;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.*;
 
+/**
+ * 키워드 조회 Dto
+ */
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SearchHistoryDto {

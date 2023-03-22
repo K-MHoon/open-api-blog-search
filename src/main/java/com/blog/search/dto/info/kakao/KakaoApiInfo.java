@@ -9,6 +9,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+/**
+ * 카카오 Api 호출 관련 정보를 담고있는 Information
+ */
 @Component("KAKAO")
 @Getter
 public class KakaoApiInfo implements OpenApiInfo {
