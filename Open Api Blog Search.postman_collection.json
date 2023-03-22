@@ -37,12 +37,12 @@
 						{
 							"key": "page",
 							"value": "{{page}}",
-							"description": "검색할 페이지 (1~50) (Integer, Optional)"
+							"description": "검색할 페이지 (1~50) (Default : 1) (Integer, Optional)"
 						},
 						{
 							"key": "size",
 							"value": "{{size}}",
-							"description": "검색할 개수 (1~50) (Integer, Optional)"
+							"description": "검색할 개수 (1~50) (Default : 10) (Integer, Optional)"
 						}
 					]
 				}
@@ -80,13 +80,13 @@
 								{
 									"key": "page",
 									"value": "{{page}}",
-									"description": "검색할 페이지 (1~50) (Integer, Optional)",
+									"description": "검색할 페이지 (1~50) (Default : 1) (Integer, Optional)",
 									"disabled": true
 								},
 								{
 									"key": "size",
 									"value": "{{size}}",
-									"description": "검색할 개수 (1~50) (Integer, Optional)",
+									"description": "검색할 개수 (1~50) (Default : 10) (Integer, Optional)",
 									"disabled": true
 								}
 							]
@@ -136,7 +136,7 @@
 						{
 							"key": "start",
 							"value": "{{start}}",
-							"description": "검색 시작 위치 (1~100) (Default: 1) (Integer, Optional)"
+							"description": "검색 시작 위치 (1~1000) (Default: 1) (Integer, Optional)"
 						}
 					]
 				}
@@ -180,7 +180,7 @@
 								{
 									"key": "start",
 									"value": "{{start}}",
-									"description": "검색 시작 위치 (1~100) (Default: 1) (Integer, Optional)",
+									"description": "검색 시작 위치 (1~1000) (Default: 1) (Integer, Optional)",
 									"disabled": true
 								}
 							]
