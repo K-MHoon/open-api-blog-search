@@ -14,9 +14,9 @@ https://documenter.getpostman.com/view/13046002/2s93RL2H1T
 - JDK 17
 - Spring Boot 3
 - Spring Data JPA
-- QueryDsl
 - H2 (DataBase)
 - Gradle
+- QueryDsl (조회 코드 가독성 향상 목적으로 사용)
 
 # Using Open API
 - Kakao Blog Search = https://developers.kakao.com/docs/latest/ko/daum-search/dev-guide#search-blog
