@@ -32,7 +32,7 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 
 @SpringBootTest
 @AutoConfigureMockRestServiceServer
-class OpenApiTest {
+class OpenApiServiceTest {
 
     @Autowired
     MockRestServiceServer mockServer;

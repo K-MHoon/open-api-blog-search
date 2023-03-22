@@ -1,15 +1,19 @@
 package com.blog.search.service.search;
 
 import com.blog.search.config.OpenApiInfoLocator;
-import com.blog.search.dto.request.openapi.OpenApiRequestParameter;
 import com.blog.search.dto.request.openapi.kakao.KakaoBlogSearchParameter;
+import com.blog.search.dto.request.openapi.naver.NaverBlogSearchParameter;
 import com.blog.search.dto.response.openapi.OpenApiResponse;
 import com.blog.search.dto.response.openapi.kakao.OpenApiResponseKakaoBlogSearch;
+import com.blog.search.dto.response.openapi.naver.OpenApiResponseNaverBlogSearch;
 import com.blog.search.dto.response.search.BlogSearchControllerResponse;
 import com.blog.search.entity.search.SearchHistory;
 import com.blog.search.enums.CompanyType;
+import com.blog.search.enums.openapi.ApiType;
 import com.blog.search.enums.openapi.KakaoApiType;
+import com.blog.search.enums.openapi.NaverApiType;
 import com.blog.search.enums.sort.KakaoBlogSearchSort;
+import com.blog.search.enums.sort.NaverBlogSearchSort;
 import com.blog.search.repository.search.SearchHistoryJpaRepository;
 import com.blog.search.service.openapi.OpenApiService;
 import org.junit.jupiter.api.DisplayName;
@@ -21,6 +25,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.HttpClientErrorException;
 
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.Collections;
 import java.util.List;
@@ -51,13 +56,9 @@ class BlogSearchServiceTest {
     @DisplayName("카카오 블로그 검색에 성공한다.")
     @Timeout(1000)
     void getKakaoBlogSearchResultSuccess() {
-        String query = "테스트";
-        KakaoBlogSearchSort sort = null;
-        Integer page = null;
-        Integer size = null;
-        OpenApiRequestParameter parameter = new KakaoBlogSearchParameter(query, sort, page, size);
+        KakaoBlogSearchParameter parameter = getKakaoBlogSearchParameter("테스트", null, null, null);
 
-        OpenApiResponse result = openApiService.call(CompanyType.KAKAO, KakaoApiType.BLOG_SEARCH, parameter);
+        OpenApiResponse result = blogSearchService.getKakaoBlogSearchResult(parameter);
 
         assertThat(result).isInstanceOf(OpenApiResponseKakaoBlogSearch.class);
     }
@@ -66,30 +67,22 @@ class BlogSearchServiceTest {
     @DisplayName("카카오 블로그 검색에 성공하면, searchHistory가 저장된다.")
     @Timeout(1000)
     void saveKakaoSearchHistoryWhenSearchSuccess() {
-        String query = "테스트";
-        KakaoBlogSearchSort sort = null;
-        Integer page = null;
-        Integer size = null;
-        KakaoBlogSearchParameter parameter = new KakaoBlogSearchParameter(query, sort, page, size);
+        KakaoBlogSearchParameter parameter = getKakaoBlogSearchParameter("테스트", null, null, null);
 
         blogSearchService.getKakaoBlogSearchResult(parameter);
 
         List<SearchHistory> historyList = searchHistoryJpaRepository.findAll();
         assertAll(() -> assertThat(historyList).hasSize(1)
-        , () -> assertThat(historyList.get(0).getQuery()).isEqualTo(query));
+        , () -> assertThat(historyList.get(0).getQuery()).isEqualTo("테스트"));
     }
 
     @Test
     @DisplayName("검색어 값이 없으면 예외가 발생한다.")
     @Timeout(1000)
     void causeExceptionWhenNotInputQuery() {
-        String query = null;
-        KakaoBlogSearchSort sort = null;
-        Integer page = null;
-        Integer size = null;
-        OpenApiRequestParameter parameter = new KakaoBlogSearchParameter(query, sort, page, size);
+        KakaoBlogSearchParameter parameter = getKakaoBlogSearchParameter(null, null, null, null);
 
-        assertThatThrownBy(() -> openApiService.call(CompanyType.KAKAO, KakaoApiType.BLOG_SEARCH, parameter))
+        assertThatThrownBy(() -> blogSearchService.getKakaoBlogSearchResult(parameter))
                 .isInstanceOf(HttpClientErrorException.class)
                 .extracting("statusCode")
                 .isEqualTo(HttpStatus.BAD_REQUEST);
@@ -99,15 +92,11 @@ class BlogSearchServiceTest {
     @DisplayName("카카오 블로그 검색 조건 중 SearchSort가 null이면 정확도(Accuracy) 순서로 조회된다.")
     @Timeout(1000)
     void getKakaoBlogSearchResultAccurateIfSearchSortIsNull() {
-        String query = "테스트";
-        KakaoBlogSearchSort sort = null;
-        Integer page = null;
-        Integer size = null;
-        OpenApiRequestParameter parameter = new KakaoBlogSearchParameter(query, sort, page, size);
-        OpenApiRequestParameter parameter2 = new KakaoBlogSearchParameter(query, KakaoBlogSearchSort.ACCURACY, page, size);
+        KakaoBlogSearchParameter parameter = getKakaoBlogSearchParameter("테스트", null, null, null);
+        KakaoBlogSearchParameter parameter2 = getKakaoBlogSearchParameter("테스트", KakaoBlogSearchSort.ACCURACY, null, null);
 
-        OpenApiResponse originalResult = openApiService.call(CompanyType.KAKAO, KakaoApiType.BLOG_SEARCH, parameter);
-        OpenApiResponse targetResult = openApiService.call(CompanyType.KAKAO, KakaoApiType.BLOG_SEARCH, parameter2);
+        OpenApiResponse originalResult = blogSearchService.getKakaoBlogSearchResult(parameter);
+        OpenApiResponse targetResult = blogSearchService.getKakaoBlogSearchResult(parameter2);
 
         assertThat(originalResult.getPagination().getData())
                 .containsExactlyElementsOf(targetResult.getPagination().getData());
@@ -116,16 +105,12 @@ class BlogSearchServiceTest {
     @Test
     @DisplayName("카카오 블로그 검색 조건 중 SearchSort가 RECENCY 이면 최신순(Accuracy) 순서로 조회된다.")
     @Timeout(1000)
-    void getKakaoBlogSearchResulRecencyIfSearchSortIsRecency() {
+    void getKakaoBlogSearchResultRecencyIfSearchSortIsRecency() {
         // given
-        String query = "테스트";
-        KakaoBlogSearchSort sort = KakaoBlogSearchSort.RECENCY;
-        Integer page = null;
-        Integer size = null;
-        OpenApiRequestParameter parameter = new KakaoBlogSearchParameter(query, sort, page, size);
+        KakaoBlogSearchParameter parameter = getKakaoBlogSearchParameter("테스트", KakaoBlogSearchSort.RECENCY, null, null);
 
         // when
-        OpenApiResponseKakaoBlogSearch result = (OpenApiResponseKakaoBlogSearch) openApiService.call(CompanyType.KAKAO, KakaoApiType.BLOG_SEARCH, parameter);
+        OpenApiResponseKakaoBlogSearch result = (OpenApiResponseKakaoBlogSearch)blogSearchService.getKakaoBlogSearchResult(parameter);
 
         // then
         List<ZonedDateTime> zonedDateTimeList = result.getDocuments().stream()
@@ -138,14 +123,10 @@ class BlogSearchServiceTest {
     @Test
     @DisplayName("카카오 블로그 검색 조건 중 page가 50을 초과하면 예외가 발생한다.")
     @Timeout(1000)
-    void getKakaoBlogSearchResultAccurateIfPageHigherThan50() {
-        String query = "테스트";
-        KakaoBlogSearchSort sort = null;
-        Integer page = 51;
-        Integer size = null;
-        OpenApiRequestParameter parameter = new KakaoBlogSearchParameter(query, sort, page, size);
+    void causeExceptionKakaoBlogSearchIfPageHigherThan50() {
+        KakaoBlogSearchParameter parameter = getKakaoBlogSearchParameter("테스트", null, 51, null);
 
-        assertThatThrownBy(() -> openApiService.call(CompanyType.KAKAO, KakaoApiType.BLOG_SEARCH, parameter))
+        assertThatThrownBy(() -> blogSearchService.getKakaoBlogSearchResult(parameter))
                 .isInstanceOf(HttpClientErrorException.class)
                 .extracting("statusCode")
                 .isEqualTo(HttpStatus.BAD_REQUEST);
@@ -155,14 +136,10 @@ class BlogSearchServiceTest {
     @Test
     @DisplayName("카카오 블로그 검색 조건 중 size가 50을 초과하면 예외가 발생한다.")
     @Timeout(1000)
-    void getKakaoBlogSearchResultAccurateIfSizeHigherThan50() {
-        String query = "테스트";
-        KakaoBlogSearchSort sort = null;
-        Integer page = null;
-        Integer size = 51;
-        OpenApiRequestParameter parameter = new KakaoBlogSearchParameter(query, sort, page, size);
+    void causeExceptionKakaoBlogSearchIfSizeHigherThan50() {
+        KakaoBlogSearchParameter parameter = getKakaoBlogSearchParameter("테스트", null, null, 51);
 
-        assertThatThrownBy(() -> openApiService.call(CompanyType.KAKAO, KakaoApiType.BLOG_SEARCH, parameter))
+        assertThatThrownBy(() -> blogSearchService.getKakaoBlogSearchResult(parameter))
                 .isInstanceOf(HttpClientErrorException.class)
                 .extracting("statusCode")
                 .isEqualTo(HttpStatus.BAD_REQUEST);
@@ -172,16 +149,16 @@ class BlogSearchServiceTest {
     @Test
     @DisplayName("카카오 블로그 검색 조건 중 size가 null이면 10개가 조회된다.")
     @Timeout(1000)
-    void getKakaoBlogSearchResultAccurateIfSizeIsNull() {
-        String query = "테스트";
-        KakaoBlogSearchSort sort = null;
-        Integer page = null;
-        Integer size = null;
-        OpenApiRequestParameter parameter = new KakaoBlogSearchParameter(query, sort, page, size);
+    void getKakaoBlogSearchResult10KakaoBlogSearchIfSizeIsNull() {
+        KakaoBlogSearchParameter parameter = getKakaoBlogSearchParameter("테스트", null, null, null);
 
-        OpenApiResponse result = openApiService.call(CompanyType.KAKAO, KakaoApiType.BLOG_SEARCH, parameter);
+        OpenApiResponse result = blogSearchService.getKakaoBlogSearchResult(parameter);
 
         assertThat(result.getPagination().getData()).hasSize(10);
+    }
+
+    private KakaoBlogSearchParameter getKakaoBlogSearchParameter(String query, KakaoBlogSearchSort sort, Integer page, Integer size) {
+        return new KakaoBlogSearchParameter(query, sort, page, size);
     }
 
     @Test
