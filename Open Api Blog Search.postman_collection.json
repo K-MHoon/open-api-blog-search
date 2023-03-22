@@ -12,7 +12,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/kakako/search?query={{query}}&sort={{sort}}&page={{page}}&size={{size}}",
+					"raw": "http://localhost:8080/api/kakao/search?query={{query}}&sort={{sort}}&page={{page}}&size={{size}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -20,29 +20,25 @@
 					"port": "8080",
 					"path": [
 						"api",
-						"kakako",
+						"kakao",
 						"search"
 					],
 					"query": [
 						{
 							"key": "query",
-							"value": "{{query}}",
-							"description": "검색어 (String, Required)"
+							"value": "{{query}}"
 						},
 						{
 							"key": "sort",
-							"value": "{{sort}}",
-							"description": "조회 조건 (accuracy = 정확도순, recency = 최신순) (String, Optional)"
+							"value": "{{sort}}"
 						},
 						{
 							"key": "page",
-							"value": "{{page}}",
-							"description": "검색할 페이지 (1~50) (Integer, Optional)"
+							"value": "{{page}}"
 						},
 						{
 							"key": "size",
-							"value": "{{size}}",
-							"description": "검색할 개수 (1~50) (Integer, Optional)"
+							"value": "{{size}}"
 						}
 					]
 				}
@@ -54,7 +50,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/naver/search?query=반갑습니다",
+							"raw": "http://localhost:8080/api/kakao/search?query=반갑습니다",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -62,7 +58,7 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"naver",
+								"kakao",
 								"search"
 							],
 							"query": [
@@ -96,7 +92,7 @@
 					"_postman_previewlanguage": "json",
 					"header": null,
 					"cookie": [],
-					"body": "{\n    \"pageInfo\": {\n        \"totalPage\": 795,\n        \"totalElements\": 1907787,\n        \"isLast\": false\n    },\n    \"data\": [\n        {\n            \"title\": \"대단히 <b>반갑습니다</b>\",\n            \"contents\": \"​ 여러분 대단히 <b>반갑습니다</b> ​ 모두들 어떻게 지내고 계신지.. 궁금하네용가리 ​ 부끄럼 많은 저는 오늘도 블로그를 핑계 삼아 안부를 묻습니다 허허 ​ 이 글을 보고 계시는 님덜 저의 질문에 텔레파시로 답변해 주시길 간곡히 부탁드리며 ​ 미천한 찬마의 2월을 보면서 씹고 뜯고 맛보고 즐겨 주십시오 ​ 땡삼! (이 말 요즘도...\",\n            \"url\": \"https://blog.naver.com/zzzggg1009/223037875069\",\n            \"blogname\": \"찬란하시길!\",\n            \"thumbnail\": \"https://search2.kakaocdn.net/argon/130x130_85_c/vHGNkhe99c\",\n            \"datetime\": \"2023-03-07T21:24:00.000+09:00\"\n        },\n        {\n            \"title\": \"<b>반갑습니다</b> .\",\n            \"contents\": \"금동이가 매장으로 몰래 음료 시켜줬는데 요청사항 ㅋㅋ 근데 친한 기사님이 웃기다고 캡쳐해놓고 보여줘서 서프라이즈 실~ 패 ​ ​ ​ ​ 원석이랑 민석이랑 운동 끝나고 밥 조지고 노래방가서 소화시키고 베라 ㅋㅋㅋ 시간 가는 줄 모르고 노래 부르다가 베라 문 닫을 시간 되서 포장.. 손 시려서 뒤지는줄...\",\n            \"url\": \"https://blog.naver.com/aran0627k/223034977182\",\n            \"blogname\": \"귀여운게 최고야 !\",\n            \"thumbnail\": \"https://search1.kakaocdn.net/argon/130x130_85_c/owRXiYObFB\",\n            \"datetime\": \"2023-03-04T23:42:00.000+09:00\"\n        },\n        {\n            \"title\": \"다시 만나서 <b>반갑습니다</b>\",\n            \"contents\": \"본가에서의 독립 그리고 여행 준비 덕분에 끊임없는 생각과 움직임으로 알찬 시간을 보낸 한 달이었다. ​ 작년에 쓴 글 중 문장 하나가 오늘 눈에 들어왔는데, 내 글 중 몇 안 되는 &#39;퍽이나&#39; 마음에 든 글이다. ​ &#39;순간이 흐르고 시간이 흘러 기억은 흐려졌다.&#39; ​ 라는 말 다음에 ​ &#39;잊지 않기 위해 사진을 찍고 싶다&#39;라는...\",\n            \"url\": \"https://blog.naver.com/junheok0621/223042412058\",\n            \"blogname\": \"우리 모두 담백하게 살아가요\",\n            \"thumbnail\": \"https://search3.kakaocdn.net/argon/130x130_85_c/8utYkwU68PW\",\n            \"datetime\": \"2023-03-12T21:46:00.000+09:00\"\n        },\n        {\n            \"title\": \"안녕하세요<b>반갑습니다</b>\",\n            \"contents\": \"202301~3 결산 시작해보겠습니다​ 라고 적은 뒤 밀린 블로그 기록 남기기 이 사진들은 수많은 써브웨이 출근샷들.. 출근 전에 딸래미 걱정하시는 부모님께 보내드리는 출근 인증샷.. 뭐 그런 겁니다 ​ 하루는 역시나 출근샷을 열심히 찍은 뒤에 탈의실 문을 열었는데 ... 점장님께서..! 퇴근하려 기다리고 있으시더라구요...\",\n            \"url\": \"https://blog.naver.com/rlarmadl2379/223050797609\",\n            \"blogname\": \"_0106\",\n            \"thumbnail\": \"https://search3.kakaocdn.net/argon/130x130_85_c/D5IBrm3xYcs\",\n            \"datetime\": \"2023-03-21T03:21:00.000+09:00\"\n        },\n        {\n            \"title\": \"<b>반갑습니다</b>\",\n            \"contents\": \"<b>반갑습니다</b> 여러분 네 2달 만에 글 쓰러 들어왔습니다 ​ 뭐 근황이 궁금했나..? 궁금하긴 해여? 궁금했을 수도 있으니 한번 보세요 ​ ​ 1/28 이거 찍으려고 만난 건 아닌데 밖에서 한 게 이거뿐임 이민주랑 신림 가서 하루 필름 찍고 나 홀로 피어싱 뚫음 보이세요? 두려움으로 가득 찬 눈과 도라에몽을 짓누르고 있는 저의...\",\n            \"url\": \"https://blog.naver.com/armypark613/223050679874\",\n            \"blogname\": \"코알라의 귀찮은일상\",\n            \"thumbnail\": \"https://search3.kakaocdn.net/argon/130x130_85_c/9yeZX1zg4Pt\",\n            \"datetime\": \"2023-03-20T23:45:00.000+09:00\"\n        },\n        {\n            \"title\": \"<b>반갑습니다</b>?\",\n            \"contents\": \"안녕 오늘 휴무라서 갑자기 블로그가 땡겨서 써볼게 난 블로그 학기마다 쓰는 듯 난 슈퍼 p인 인간임 주절거리지 말고 바로 써볼게 ㅋ ㅋ . 이날은 내 소중한 대학 친구 가은이랑 처음으로 둘이서 노는 날 전 날부터 신나서 설레며 잠을 뒤척였어 가은아 😙🫢 ㅠㅠ 학교 바로 옆에 있는 마마롱 이름도 참 귀엽지 않음...\",\n            \"url\": \"https://blog.naver.com/emsgo1228/223020559346\",\n            \"blogname\": \"①②②⑧ 님의블로그\",\n            \"thumbnail\": \"https://search3.kakaocdn.net/argon/130x130_85_c/6XWxFkH2OMz\",\n            \"datetime\": \"2023-02-19T11:33:00.000+09:00\"\n        },\n        {\n            \"title\": \"<b>반갑습니다</b>.\",\n            \"contents\": \"1월일 줄 알았죠? 아쉽지만 미루고 미루다 쓰는 12월 일상입니다 ~^^ 12월 1일 정고씨를 만나 밥을 먹고 카공을 했다. 외대에 새로 생긴 텐동집 직원분이 한국말을 잘 못알아 들어서 당황스러웠다. (한국분은 아니신듯) 아무튼 밥을 먹고 고요에 가서 고요한 공부를 했다... 쁘이 ^_^ Vv 채백씨가 인스타에 올린 글 보고...\",\n            \"url\": \"https://blog.naver.com/sunsor0105/223024304027\",\n            \"blogname\": \"In_The_8\",\n            \"thumbnail\": \"https://search3.kakaocdn.net/argon/130x130_85_c/IZUg4IJ87C0\",\n            \"datetime\": \"2023-02-22T17:35:00.000+09:00\"\n        },\n        {\n            \"title\": \"<b>반갑습니다</b>\",\n            \"contents\": \"안녕하세요 ​ 오랜만입니다 ​ 작년 11월 방콕부터 현재까지 ​ 근황 ​ ​ ​ 더워서 힘들었지만 ​ 또 생각나는 여행 ​ 비행기가 3박 5일짜리밖에 없다니 ​ 그래도 너무 좋았다 ​ ​ ​ ​ 그동안 갔던 여행중에 제일 기억에 남는 곳 ​ 여유롭게 여행해서 더 좋았다 ​ 다음엔 도쿄로...! ​ ​ ​ ​ 입사 기념 ​ 새 컴퓨터 ​ ​ 입사 기념 ​ 새 모니터...\",\n            \"url\": \"https://blog.naver.com/skarjsah0121/223044015518\",\n            \"blogname\": \"깜모의 이야기 (*•̀ᴗ•́*)و ̑̑\",\n            \"thumbnail\": \"https://search3.kakaocdn.net/argon/130x130_85_c/Bd5OHemjrJc\",\n            \"datetime\": \"2023-03-14T12:48:00.000+09:00\"\n        },\n        {\n            \"title\": \"printf (&#34; 안녕하세요! 만나서 <b>반갑습니다</b>. &#34;) ;\",\n            \"contents\": \"#include &lt;studio.h&gt; int printf (&#34; 제 이름은 김하림입니다. &#34;); int printf (&#34; 홍익대학교 시각디자인과 4학년입니다. &#34;); int printf (&#34; *********@*****.*** &#34;); int printf (&#34; *** - **** - **** &#34;); int printf (&#34; MBTI : INFP &#34;); 사실 제가 처음 접했던 언어는 c언어였습니다. 그조차 항상 기초만 배우고 말아서...\",\n            \"url\": \"http://thanks-gmit.tistory.com/144\",\n            \"blogname\": \"필승\",\n            \"thumbnail\": \"https://search3.kakaocdn.net/argon/130x130_85_c/CPjhUDKuSmG\",\n            \"datetime\": \"2023-03-07T23:43:29.000+09:00\"\n        },\n        {\n            \"title\": \"<b>반갑습니다</b> 이은지입니다~\",\n            \"contents\": \"​ ​ 저번 달에 사진을 너무 안 찍었더라고요? 반성반성~ 이번엔 분발했으니까 감사해하도록! 하지만 너무 분발해버렸당~ ​ ​ 사진 찍으라면서요. 손 monday ​ ​ 민희: 팝콘만 찍어주세요 은지: 응~! ​ ​ 오타쿠 가슴을 팬다 이 말이야.. 4번 빼고 다 내 남친 4번은 장민희 남친 ​ ​ ​ 셋 다 머리 안빨음 ^0^~ ​ ​ ​ 1년 반 어치 통장...\",\n            \"url\": \"https://blog.naver.com/day365jj/223030812667\",\n            \"blogname\": \"은지쯤 철들까\",\n            \"thumbnail\": \"https://search2.kakaocdn.net/argon/130x130_85_c/6nqT6GtDQ14\",\n            \"datetime\": \"2023-02-28T20:24:00.000+09:00\"\n        }\n    ]\n}"
+					"body": "{\n    \"pageInfo\": {\n        \"totalPage\": 795,\n        \"totalElements\": 1907785,\n        \"isLast\": false\n    },\n    \"data\": [\n        {\n            \"title\": \"대단히 <b>반갑습니다</b>\",\n            \"contents\": \"​ 여러분 대단히 <b>반갑습니다</b> ​ 모두들 어떻게 지내고 계신지.. 궁금하네용가리 ​ 부끄럼 많은 저는 오늘도 블로그를 핑계 삼아 안부를 묻습니다 허허 ​ 이 글을 보고 계시는 님덜 저의 질문에 텔레파시로 답변해 주시길 간곡히 부탁드리며 ​ 미천한 찬마의 2월을 보면서 씹고 뜯고 맛보고 즐겨 주십시오 ​ 땡삼! (이 말 요즘도...\",\n            \"url\": \"https://blog.naver.com/zzzggg1009/223037875069\",\n            \"blogname\": \"찬란하시길!\",\n            \"thumbnail\": \"https://search2.kakaocdn.net/argon/130x130_85_c/vHGNkhe99c\",\n            \"datetime\": \"2023-03-07T21:24:00.000+09:00\"\n        },\n        {\n            \"title\": \"<b>반갑습니다</b> .\",\n            \"contents\": \"금동이가 매장으로 몰래 음료 시켜줬는데 요청사항 ㅋㅋ 근데 친한 기사님이 웃기다고 캡쳐해놓고 보여줘서 서프라이즈 실~ 패 ​ ​ ​ ​ 원석이랑 민석이랑 운동 끝나고 밥 조지고 노래방가서 소화시키고 베라 ㅋㅋㅋ 시간 가는 줄 모르고 노래 부르다가 베라 문 닫을 시간 되서 포장.. 손 시려서 뒤지는줄...\",\n            \"url\": \"https://blog.naver.com/aran0627k/223034977182\",\n            \"blogname\": \"귀여운게 최고야 !\",\n            \"thumbnail\": \"https://search1.kakaocdn.net/argon/130x130_85_c/owRXiYObFB\",\n            \"datetime\": \"2023-03-04T23:42:00.000+09:00\"\n        },\n        {\n            \"title\": \"다시 만나서 <b>반갑습니다</b>\",\n            \"contents\": \"본가에서의 독립 그리고 여행 준비 덕분에 끊임없는 생각과 움직임으로 알찬 시간을 보낸 한 달이었다. ​ 작년에 쓴 글 중 문장 하나가 오늘 눈에 들어왔는데, 내 글 중 몇 안 되는 &#39;퍽이나&#39; 마음에 든 글이다. ​ &#39;순간이 흐르고 시간이 흘러 기억은 흐려졌다.&#39; ​ 라는 말 다음에 ​ &#39;잊지 않기 위해 사진을 찍고 싶다&#39;라는...\",\n            \"url\": \"https://blog.naver.com/junheok0621/223042412058\",\n            \"blogname\": \"우리 모두 담백하게 살아가요\",\n            \"thumbnail\": \"https://search3.kakaocdn.net/argon/130x130_85_c/8utYkwU68PW\",\n            \"datetime\": \"2023-03-12T21:46:00.000+09:00\"\n        },\n        {\n            \"title\": \"안녕하세요<b>반갑습니다</b>\",\n            \"contents\": \"202301~3 결산 시작해보겠습니다​ 라고 적은 뒤 밀린 블로그 기록 남기기 이 사진들은 수많은 써브웨이 출근샷들.. 출근 전에 딸래미 걱정하시는 부모님께 보내드리는 출근 인증샷.. 뭐 그런 겁니다 ​ 하루는 역시나 출근샷을 열심히 찍은 뒤에 탈의실 문을 열었는데 ... 점장님께서..! 퇴근하려 기다리고 있으시더라구요...\",\n            \"url\": \"https://blog.naver.com/rlarmadl2379/223050797609\",\n            \"blogname\": \"_0106\",\n            \"thumbnail\": \"https://search3.kakaocdn.net/argon/130x130_85_c/D5IBrm3xYcs\",\n            \"datetime\": \"2023-03-21T03:21:00.000+09:00\"\n        },\n        {\n            \"title\": \"<b>반갑습니다</b>\",\n            \"contents\": \"<b>반갑습니다</b> 여러분 네 2달 만에 글 쓰러 들어왔습니다 ​ 뭐 근황이 궁금했나..? 궁금하긴 해여? 궁금했을 수도 있으니 한번 보세요 ​ ​ 1/28 이거 찍으려고 만난 건 아닌데 밖에서 한 게 이거뿐임 이민주랑 신림 가서 하루 필름 찍고 나 홀로 피어싱 뚫음 보이세요? 두려움으로 가득 찬 눈과 도라에몽을 짓누르고 있는 저의...\",\n            \"url\": \"https://blog.naver.com/armypark613/223050679874\",\n            \"blogname\": \"코알라의 귀찮은일상\",\n            \"thumbnail\": \"https://search3.kakaocdn.net/argon/130x130_85_c/9yeZX1zg4Pt\",\n            \"datetime\": \"2023-03-20T23:45:00.000+09:00\"\n        },\n        {\n            \"title\": \"<b>반갑습니다</b>?\",\n            \"contents\": \"안녕 오늘 휴무라서 갑자기 블로그가 땡겨서 써볼게 난 블로그 학기마다 쓰는 듯 난 슈퍼 p인 인간임 주절거리지 말고 바로 써볼게 ㅋ ㅋ . 이날은 내 소중한 대학 친구 가은이랑 처음으로 둘이서 노는 날 전 날부터 신나서 설레며 잠을 뒤척였어 가은아 😙🫢 ㅠㅠ 학교 바로 옆에 있는 마마롱 이름도 참 귀엽지 않음...\",\n            \"url\": \"https://blog.naver.com/emsgo1228/223020559346\",\n            \"blogname\": \"①②②⑧ 님의블로그\",\n            \"thumbnail\": \"https://search3.kakaocdn.net/argon/130x130_85_c/6XWxFkH2OMz\",\n            \"datetime\": \"2023-02-19T11:33:00.000+09:00\"\n        },\n        {\n            \"title\": \"<b>반갑습니다</b>.\",\n            \"contents\": \"1월일 줄 알았죠? 아쉽지만 미루고 미루다 쓰는 12월 일상입니다 ~^^ 12월 1일 정고씨를 만나 밥을 먹고 카공을 했다. 외대에 새로 생긴 텐동집 직원분이 한국말을 잘 못알아 들어서 당황스러웠다. (한국분은 아니신듯) 아무튼 밥을 먹고 고요에 가서 고요한 공부를 했다... 쁘이 ^_^ Vv 채백씨가 인스타에 올린 글 보고...\",\n            \"url\": \"https://blog.naver.com/sunsor0105/223024304027\",\n            \"blogname\": \"In_The_8\",\n            \"thumbnail\": \"https://search3.kakaocdn.net/argon/130x130_85_c/IZUg4IJ87C0\",\n            \"datetime\": \"2023-02-22T17:35:00.000+09:00\"\n        },\n        {\n            \"title\": \"<b>반갑습니다</b>\",\n            \"contents\": \"안녕하세요 ​ 오랜만입니다 ​ 작년 11월 방콕부터 현재까지 ​ 근황 ​ ​ ​ 더워서 힘들었지만 ​ 또 생각나는 여행 ​ 비행기가 3박 5일짜리밖에 없다니 ​ 그래도 너무 좋았다 ​ ​ ​ ​ 그동안 갔던 여행중에 제일 기억에 남는 곳 ​ 여유롭게 여행해서 더 좋았다 ​ 다음엔 도쿄로...! ​ ​ ​ ​ 입사 기념 ​ 새 컴퓨터 ​ ​ 입사 기념 ​ 새 모니터...\",\n            \"url\": \"https://blog.naver.com/skarjsah0121/223044015518\",\n            \"blogname\": \"깜모의 이야기 (*•̀ᴗ•́*)و ̑̑\",\n            \"thumbnail\": \"https://search3.kakaocdn.net/argon/130x130_85_c/Bd5OHemjrJc\",\n            \"datetime\": \"2023-03-14T12:48:00.000+09:00\"\n        },\n        {\n            \"title\": \"printf (&#34; 안녕하세요! 만나서 <b>반갑습니다</b>. &#34;) ;\",\n            \"contents\": \"#include &lt;studio.h&gt; int printf (&#34; 제 이름은 김하림입니다. &#34;); int printf (&#34; 홍익대학교 시각디자인과 4학년입니다. &#34;); int printf (&#34; *********@*****.*** &#34;); int printf (&#34; *** - **** - **** &#34;); int printf (&#34; MBTI : INFP &#34;); 사실 제가 처음 접했던 언어는 c언어였습니다. 그조차 항상 기초만 배우고 말아서...\",\n            \"url\": \"http://thanks-gmit.tistory.com/144\",\n            \"blogname\": \"필승\",\n            \"thumbnail\": \"https://search3.kakaocdn.net/argon/130x130_85_c/CPjhUDKuSmG\",\n            \"datetime\": \"2023-03-07T23:43:29.000+09:00\"\n        },\n        {\n            \"title\": \"<b>반갑습니다</b> 이은지입니다~\",\n            \"contents\": \"​ ​ 저번 달에 사진을 너무 안 찍었더라고요? 반성반성~ 이번엔 분발했으니까 감사해하도록! 하지만 너무 분발해버렸당~ ​ ​ 사진 찍으라면서요. 손 monday ​ ​ 민희: 팝콘만 찍어주세요 은지: 응~! ​ ​ 오타쿠 가슴을 팬다 이 말이야.. 4번 빼고 다 내 남친 4번은 장민희 남친 ​ ​ ​ 셋 다 머리 안빨음 ^0^~ ​ ​ ​ 1년 반 어치 통장...\",\n            \"url\": \"https://blog.naver.com/day365jj/223030812667\",\n            \"blogname\": \"은지쯤 철들까\",\n            \"thumbnail\": \"https://search2.kakaocdn.net/argon/130x130_85_c/6nqT6GtDQ14\",\n            \"datetime\": \"2023-02-28T20:24:00.000+09:00\"\n        }\n    ]\n}"
 				}
 			]
 		},
