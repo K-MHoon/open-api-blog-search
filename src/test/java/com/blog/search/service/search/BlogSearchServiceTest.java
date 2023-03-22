@@ -21,7 +21,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.HttpClientErrorException;
 
-import java.net.BindException;
 import java.time.ZonedDateTime;
 import java.util.Collections;
 import java.util.List;
@@ -68,8 +67,12 @@ class BlogSearchServiceTest {
     @Timeout(1000)
     void saveKakaoSearchHistoryWhenSearchSuccess() {
         String query = "테스트";
+        KakaoBlogSearchSort sort = null;
+        Integer page = null;
+        Integer size = null;
+        KakaoBlogSearchParameter parameter = new KakaoBlogSearchParameter(query, sort, page, size);
 
-        blogSearchService.saveSearchHistory(query, CompanyType.KAKAO);
+        blogSearchService.getKakaoBlogSearchResult(parameter);
 
         List<SearchHistory> historyList = searchHistoryJpaRepository.findAll();
         assertAll(() -> assertThat(historyList).hasSize(1)

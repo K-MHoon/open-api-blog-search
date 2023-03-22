@@ -5,11 +5,6 @@ import com.blog.search.dto.request.openapi.kakao.KakaoBlogSearchParameter;
 import com.blog.search.dto.request.openapi.naver.NaverBlogSearchParameter;
 import com.blog.search.dto.response.openapi.OpenApiResponse;
 import com.blog.search.dto.response.search.BlogSearchControllerResponse;
-import com.blog.search.enums.CompanyType;
-import com.blog.search.enums.openapi.KakaoApiType;
-import com.blog.search.enums.openapi.NaverApiType;
-import com.blog.search.enums.sort.NaverBlogSearchSort;
-import com.blog.search.service.openapi.OpenApiService;
 import com.blog.search.service.search.BlogSearchService;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -28,7 +23,6 @@ import org.springframework.web.bind.annotation.*;
 public class BlogSearchController {
 
     private final BlogSearchService blogSearchService;
-    private final OpenApiService openApiService;
 
     /**
      * 카카오 API 블로그 검색 조회
@@ -41,8 +35,7 @@ public class BlogSearchController {
     public Pagination getKakaoBlogSearchResult(@ModelAttribute @Validated KakaoBlogSearchParameter parameter) {
         log.info("[getKakaoBlogSearchResult] call parameter = {}", parameter);
 
-        blogSearchService.saveSearchHistory(parameter.getQuery(), CompanyType.KAKAO);
-        OpenApiResponse response = openApiService.call(CompanyType.KAKAO, KakaoApiType.BLOG_SEARCH, parameter);
+        OpenApiResponse response = blogSearchService.getKakaoBlogSearchResult(parameter);
 
         return response.getPagination();
     }
@@ -58,8 +51,7 @@ public class BlogSearchController {
     public Pagination getNaverBlogSearchResult(@ModelAttribute @Validated NaverBlogSearchParameter parameter) {
         log.info("[getNaverBlogSearchResult] call parameter = {}", parameter);
 
-        blogSearchService.saveSearchHistory(parameter.getQuery(), CompanyType.NAVER);
-        OpenApiResponse response = openApiService.call(CompanyType.NAVER, NaverApiType.BLOG_SEARCH, parameter);
+        OpenApiResponse response = blogSearchService.getNaverBlogSearchResult(parameter);
 
         return response.getPagination();
     }
